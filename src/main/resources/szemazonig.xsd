@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 sp1 (x64) (http://www.altova.com) by Jaszberenyine (IdomSoft Zrt.) -->
+<xs:schema xmlns:szazig="http://idomsoft.hu/szazig/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://idomsoft.hu/szazig/v1" targetNamespace="http://idomsoft.hu/szazig/v1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Keres">
+		<xs:annotation>
+			<xs:documentation>Szakrendszeri lekérdezések</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Fejlec" type="szazig:FejlecTipus"/>
+				<xs:element name="OkmanyTipus">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="10"/>
+							<xs:minLength value="3"/>
+							<xs:enumeration value="SZIG"/>
+							<xs:enumeration value="UTL"/>
+							<xs:enumeration value="VEN"/>
+							<xs:enumeration value="RSZIG"/>
+							<xs:enumeration value="OCRSZIG"/>
+							<xs:enumeration value="OCRUTL"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Adatok" type="szazig:AdatokTipus"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Valasz">
+		<xs:annotation>
+			<xs:documentation>Válasz küldése</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Fejlec" type="szazig:FejlecTipus"/>
+				<xs:choice>
+					<xs:element name="Uzenet" type="szazig:UzenetTipus">
+						<xs:annotation>
+							<xs:documentation>Az adatközlés feldolgozása során felmerült üzenetek, hibák listája</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LekerValasz" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Az Uzenet és a LekerValasz elem közül az egyik töltése kötelező</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="BontottNevTipus">
+		<xs:annotation>
+			<xs:documentation>csaladi es utonev kulon mezoben</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VezNev">
+				<xs:simpleType>
+					<xs:restriction base="szazig:VeznevTipus">
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UtoNev">
+				<xs:simpleType>
+					<xs:restriction base="szazig:UtonevTipus">
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NevekTipus">
+		<xs:annotation>
+			<xs:documentation>viseltnev (optionalis) es szuletesi nev</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Nev1" type="szazig:NevTipus"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NevTipus">
+		<xs:annotation>
+			<xs:documentation>Bontott nev + osszevont nev</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="BontottNev" type="szazig:BontottNevTipus"/>
+			<xs:element name="TotalNev">
+				<xs:simpleType>
+					<xs:restriction base="szazig:OsszevontnevTipus">
+						<xs:maxLength value="300"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:simpleType name="OsszevontnevTipus">
+		<xs:annotation>
+			<xs:documentation>Vezetek nev + Utonev</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="500"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SzemadatokTipus">
+		<xs:annotation>
+			<xs:documentation>Szemely (SZL adatoknak megfelelo) azonosito adatainak leirasara szolgalo komplex tipus</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Neve" type="szazig:NevTipus"/>
+			<xs:element name="Anyaneve" type="szazig:NevTipus" minOccurs="0"/>
+			<xs:element name="SzuletesiIdo" type="xs:date"/>
+			<xs:element name="SzuletesiHely">
+				<xs:simpleType>
+					<xs:restriction base="szazig:SzuletesiHelyTipus">
+						<xs:maxLength value="80" fixed="true"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="SzuletesiHelyTipus">
+		<xs:annotation>
+			<xs:documentation>Szuletesi hely - telepules</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="80"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UtonevTipus">
+		<xs:annotation>
+			<xs:documentation>Utonevet tartalmazo mezok tipusa max 50 karakter</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="200"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="UzenetKateg">
+		<xs:annotation>
+			<xs:documentation>Az adatkozles feldolgozasa soran felmerult hiba/problema kategoriaja (H/F) </xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:length value="1"/>
+				<xs:enumeration value="H"/>
+				<xs:enumeration value="F"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="UzenetKod">
+		<xs:annotation>
+			<xs:documentation>Az adatkozles feldolgozasa soran felmerult hiba/problema kodja</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:length value="5"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="UzenetLeiras">
+		<xs:annotation>
+			<xs:documentation>Az adatkozles feldolgozasa soran felmerult hiba/problema reszletes leirasa</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="1000"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="UzenetLista" type="szazig:UzenetTipus">
+		<xs:annotation>
+			<xs:documentation>Az adatkozles feldolgozasa soran felmerult uzenetek, hibak listaja</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="UzenetTipus">
+		<xs:annotation>
+			<xs:documentation>Adott hiba leirasra szolgalo struktura tipusa</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="szazig:UzenetKod"/>
+			<xs:element ref="szazig:UzenetKateg"/>
+			<xs:element ref="szazig:UzenetLeiras" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="VeznevTipus">
+		<xs:annotation>
+			<xs:documentation>Vezeteknevet tartalmazo mezok tipusa max 200 karakter</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="200"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="LekerValasz">
+		<xs:annotation>
+			<xs:documentation>Az adatkozles feldolgozasanak eredmenye</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:length value="200"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:complexType name="FejlecTipus">
+		<xs:annotation>
+			<xs:documentation>Fejlec adatainak leirasara szolgalo tipus</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TranzakcioKod">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="39"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Ido">
+				<xs:simpleType>
+					<xs:restriction base="xs:dateTime">
+						<xs:pattern value=".+T[^Z+\-]+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Szervkod">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="3"/>
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdatokTipus">
+		<xs:annotation>
+			<xs:documentation>4T adatok vagy OCR sorok</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="OkmanyAdatok" type="szazig:OkmanyAdatokTipus"/>
+			<xs:element name="OCR" type="szazig:OCRTipus"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="OCRTipus">
+		<xs:sequence>
+			<xs:element name="OCRSor1" type="szazig:OCRSorTipus"/>
+			<xs:element name="OCRSor2" type="szazig:OCRSorTipus"/>
+			<xs:element name="OCRSor3" type="szazig:OCRSorTipus" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="OCRSorTipus">
+		<xs:annotation>
+			<xs:documentation>OCR sor: SZIG vagy UTL eseten</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="30"/>
+			<xs:maxLength value="44"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OkmanyAdatokTipus">
+		<xs:sequence>
+			<xs:element name="OkmanyAzon">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+						<xs:minLength value="6"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SzemAdatok" type="szazig:SzemadatokTipus"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

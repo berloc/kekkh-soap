@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 sp1 (x64) (http://www.altova.com) by Jaszberenyine (IdomSoft Zrt.) -->
+<xs:schema xmlns:auth="http://idomsoft.hu/szazig/v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://idomsoft.hu/szazig/v2" targetNamespace="http://idomsoft.hu/szazig/v2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="SystemAuthentication" type="auth:SystemAuthenticationTipus"/>
+	<xs:complexType name="SystemAuthenticationTipus">
+		<xs:annotation>
+			<xs:documentation>Soap Header: Authentication adatainak leirasara szolgalo tipus</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Username" type="xs:string" nillable="true"/>
+			<xs:element name="Password" type="xs:string" nillable="true"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

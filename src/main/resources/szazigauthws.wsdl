@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:authws="http://idomsoft.hu/szazig/v2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:szazigws="http://idomsoft.hu/szazig/v1" name="szazigAuthWSDL" targetNamespace="http://idomsoft.hu/szazig/v2">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://idomsoft.hu/szazig/services">
+            <import namespace="http://idomsoft.hu/szazig/v1" schemaLocation="szemazonig.xsd"/>
+            <import namespace="http://idomsoft.hu/szazig/v2" schemaLocation="auth.xsd"/>
+        </schema>
+    </types>
+    <message name="KeresUzenet">
+        <part name="msgKeres" element="szazigws:Keres"/>
+    </message>
+    <message name="SystemAuthenticationUzenet">
+        <part name="msgSystemAuthentication" element="authws:SystemAuthentication"/>
+    </message>
+    <message name="ValaszUzenet">
+        <part name="msgValasz" element="szazigws:Valasz"/>
+    </message>
+    <portType name="SzazigAuthPortType">
+        <operation name="LekerAuth">
+            <input name="LekerAuthIN" message="authws:KeresUzenet"/>
+            <output name="LekerAuthOUT" message="authws:ValaszUzenet"/>
+        </operation>
+    </portType>
+    <binding name="SzazigAuthBinding" type="authws:SzazigAuthPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="LekerAuth">
+            <soap:operation soapAction="http://idomsoft.hu/szazig/v2/authleker"/>
+            <input name="LekerAuthIN">
+                <soap:header message="authws:SystemAuthenticationUzenet" part="msgSystemAuthentication" use="literal"/>
+                <soap:body use="literal"/>
+            </input>
+            <output name="LekerAuthOUT">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="SzazigAuthService">
+        <port name="SzazigAuthPort" binding="authws:SzazigAuthBinding">
+            <soap:address location="http://eaiprodapp2:8081/szemazonigws/SzazigAuthService"/>
+        </port>
+    </service>
+</definitions>
