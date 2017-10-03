@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>KEKH mock</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous"/>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous"/>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+
+</head>
+<body>
+    <div class="container">
+        <div class="well col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+            <div class="row title-container"><h1>KEKH mock service</h1></div>
+            <div class="return-container row">
+                <p>Will return:</p>
+                <p id="success-text" class="response-text">
+                    A személyazonosság igazolására alkalmas hatósági igazolvany a megadott adatokkal érvényes.
+                </p>
+                <p id="error-text" class="response-text">
+                    A megadott adatokkal nincs érvényes személyazonosság igazolására alkalmas hatósági igazolvány.
+                </p>
+                <p id="loading-text" class="response-text">
+                    Loading...
+                </p>
+            </div>
+            <div class="row"><p>Set expected response to:</p></div>
+            <div class="row">
+                <button class="btn btn-success" id="success-button">
+                    Success<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                </button>
+                <button class="btn btn-danger" id="error-button">
+                    Error<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

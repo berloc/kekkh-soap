@@ -1,0 +1,27 @@
+body {
+    text-align: center;
+}
+
+.container {
+    padding-top: 100px;
+}
+
+.title-container {
+    margin-bottom: 30px;
+}
+
+.return-container {
+    padding: 10px;
+    box-shadow: 0 0 5px #999;
+    margin: 10px;
+}
+
+.response-text {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.btn {
+    margin: 5px;
+}

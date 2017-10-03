@@ -12,6 +12,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 public class ValidationEndpoint {
 
     private static final String NAMESPACE_URI = "http://idomsoft.hu/szazig/v1";
+    public static Boolean isValid = true;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "Keres")
     @ResponsePayload
@@ -24,7 +25,11 @@ public class ValidationEndpoint {
         header.setTranzakcioKod(request.getFejlec().getTranzakcioKod());
         header.setIdo(request.getFejlec().getIdo());
 
-        response.setLekerValasz("A személyazonosság igazolására alkalmas hatósági igazolvany a megadott adatokkal érvényes.");
+        if (isValid) {
+            response.setLekerValasz("A személyazonosság igazolására alkalmas hatósági igazolvany a megadott adatokkal érvényes.");
+        } else {
+            response.setLekerValasz("A megadott adatokkal nincs érvényes személyazonosság igazolására alkalmas hatósági igazolvány.");
+        }
         response.setFejlec(header);
 
         return response;
