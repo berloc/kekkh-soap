@@ -40,7 +40,7 @@ var initApp = function(){
     };
     responseText = "loading-text";
     renderText();
-    request.open("GET", "/api/current", true);
+    request.open("GET", "/mockkekkh/api/current", true);
     request.send();
 };
 
@@ -63,7 +63,7 @@ var setResponse = function(){
     };
     responseText = "loading-text";
     renderText();
-    request.open("POST", "/api/toggle", true);
+    request.open("POST", "/mockkekkh/api/toggle", true);
     request.setRequestHeader("Content-Type", "application/json");
     request.send(JSON.stringify({"valid": valid}));
 };
